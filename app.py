@@ -10,7 +10,7 @@ import joblib
 
 
 
-df = pd.read_csv('train.csv')
+df = pd.read_csv('data.csv')
 df = df[pd.notnull(df['content'])]
 df['category_id'] = df['category'].factorize()[0]
 from io import StringIO
