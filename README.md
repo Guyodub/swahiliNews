@@ -1,4 +1,10 @@
+
+
 "# SwahiliNewsApp" 
+
+Swahili News App is a machine learning project allows Swahili online platforms to automatically group 
+news according to their categories and help readers find the specific news they want to read.
+
 
 Tools used for project development:
 Python ( 3.8 version)
