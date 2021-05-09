@@ -21,6 +21,11 @@ CSS
 
 
 For using the project clone the repository and type the following commands in the termial:
+
+On Windows:
+python app.py 
+
+On Linux
 $ set FLASK_APP= app.py
 $ flask run
 
