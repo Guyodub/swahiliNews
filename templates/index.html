@@ -21,17 +21,18 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 	<style>
+	body{
+			background: dodgerblue linear-gradient(45deg, aqua, dodgerblue, deeppink) fixed;
+			color: white;
+	}
 		.nav-item:hover {
 			background-color: rgba(224, 220, 220, 0.459);
 		}
 
 		main {
-			position: absolute;
-			margin: 0 auto !important;
+			margin: 10px auto !important;
 			width: 100% !important;
 			height: 100% !important;
-			background: dodgerblue linear-gradient(45deg, aqua, dodgerblue, deeppink) fixed;
-			color: white;
 			font: normal 32px/1.6 system-ui, sans-serif;
 			font-size: 20px;
 			text-shadow: 0 1px 1px hsl(0 0% 0% / 20%);
@@ -51,16 +52,27 @@
 		}
 
 		.text-box {
-			margin: 20px;
+			margin: 0 20px;
 		}
 
 		textarea {
-			font-size: 18px;
+			font-size: 15px;
 		}
 
 		table {
 			background-color: white;
-			;
+		}
+
+		@media  (max-width : 600px) {
+	        .card{
+				height: 100px; 
+			}
+				main {
+				margin: 0px auto !important;
+				}
+				table, textarea{
+					font-size: 12px !important; 
+				}
 		}
 	</style>
 </head>
@@ -94,17 +106,17 @@
 				<div class="col-md-6 inputs">
 					<div style="text-align:center; font-weight:bold; ">Please enter swahili text</div>
 					<form style="width:100%; padding:5px 5px;" method="POST">
-						<textarea style="width:100%; text-align:left; " rows=4 name="swa-input" id="swa-input">
+					<textarea style="width:100%; text-align:left; " rows=3 name="swa-input" id="swa-input">
                             </textarea>
 						<button class="btn btn-outline-primary " style="float: right;"
 							type="submit " id="submit-input"> submit </button>
 					</form>
 				</div>
 				<div class="col-md-6 sample ">
-					<div style="text-align:center; font-weight:bold; font-size:18px; "> Sample Text </div>
-					<table class=" table table-responsive table-hover ">
+					<div style="text-align:center; font-weight:bold; font-size:18px;"> Sample Text </div>
+					<table class=" table table-responsive table-hover" style="font-size:15px;" >
 						<thead>
-							<tr style="text-align:center ">
+							<tr>
 								<th class="table-in ">input</th>
 								<th class="table-out "> answer</th>
 							</tr>
@@ -127,9 +139,9 @@
 			<div class="row " style="display:flex" id="showresults">
 				<div class="col-8" style="margin:auto; justify-content: center;">
 					<div class="card ">					
-						<img class="card-img-top " src="{{ url_for('static', filename="images/0.jpg") }}" style="height:225px "> 
-						<div class="card-body bg-info ">
-							<h5 class="card-title" style="text-align:center; margin:1px; font-weight: bold"> Have fun with nlp
+						<img class="card-img-top " src="./static/images/start.jpg" style="height:225px "> 
+						<div class="card-body bg-info " style="padding:0px; ">
+							<h5 class="card-title" style=" text-align:center; font-weight: bold;padding-bottom:0px; margin-bottom:2px;"> Welcome to swahili nlp
 							</h5>
 						</div>
 					</div>
@@ -156,33 +168,34 @@
 
 		$('#submit-input').click(function (e) {
 			e.preventDefault();
-
+			
 			$.ajax({
 				url: "/predict",
 				data: $('form').serialize(),
 				type: "POST",
 				success: function (response) {
-					const muvie = document.getElementById("image-card")
+					const image_card = document.getElementById("image-card")
 						$("#showresults").remove();
-					let src = "static/images/" + response.prediction + ".jpg"
+					let src = "./static/images/" + response.prediction + ".jpg"
 					result = `
 					 <div class="row " style="display:flex" id="showresults">
 					 	<div class="col-8" style="margin:auto; justify-content: center;">
 					 		<div class="card ">
 					 			<img class="card-img-top " src=${src} style="height:225px ">
-					 			<div class="card-body bg-info ">
-					 				<h5 class="card-title" style="text-align:center; margin:1px; font-weight: bold"> ${response.message} </h5>
+					 			<div class="card-body bg-info " style="padding:0px;">
+					 				<h5 class="card-title" style="text-align:center; font-weight: bold; padding-bottom:0px; margin-bottom:2px;"> ${response.message} </h5>
 					 			</div>
 					 		</div>
 					 	</div>
 					 </div>
 					`
-					muvie.insertAdjacentHTML("beforeend", result)
+					image_card.insertAdjacentHTML("beforeend", result)
 				},
 				error: function (error) {
 					console.log("error", error);
 				}
 			});
+			$("#swa-input").val(' ')
 			return false;
 		})
 
