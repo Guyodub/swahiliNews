@@ -31,6 +31,6 @@ $ flask run
 
 The whole project is deployed on Heroku Cloud.
 
-Here is the link where you can access the project live : http://swahilinlp.herokuapp.com/
+
 
 Thank you!
